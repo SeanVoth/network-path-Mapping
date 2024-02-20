@@ -1,0 +1,21 @@
+# Optional: Prompt user for network credentials
+$credential = Get-Credential -Message "Enter your network credentials"
+
+# Specify the network path and drive letter
+$networkPath = "\\server\share"
+$driveLetter = "Z"
+
+# Map the network drive
+New-PSDrive -Name $driveLetter -PSProvider FileSystem -Root $networkPath -Persist -Credential $credential
+
+# Check if the drive mapping was successful
+if (Test-Path $driveLetter) {
+    Write-Host "Network drive $($driveLetter) mapped successfully."
+} else {
+    Write-Host "Failed to map the network drive."
+}
+
+# Optional: Display mapped drives
+Get-PSDrive
+
+
